@@ -27,11 +27,11 @@ class TuringMachine
 		TuringMachine()
 		{
 			//Считывание начальной ленты.
-			cout << "Введите название файла.расширение, содержащего начальную ленту и инструкции" << endl;
-			string filename;
-			cin >> filename;
-			ifstream fin;
-			fin.open(filename, ios::in);
+			//cout << "Введите название файла.расширение, содержащего начальную ленту и инструкции" << endl;
+			//string filename;
+			//cin >> filename;
+			//ifstream fin(filename);
+			ifstream fin("tm.txt");
 			if (!fin)
 			{
 				cout << "Невозможно открыть файл."<< endl;
@@ -48,23 +48,23 @@ class TuringMachine
 			//двумерный массив в котором строки - состояние
 			//а столбцы - алфавит.
 			buff.clear();
+			fin.seekg((int)fin.tellg() + 1 );
 			int tablestart = fin.tellg();
-			{
-			int i = 0;
-			do
-			fin >> buff;
-			while(buff[i] != '\n');
-			}
+			getline(fin,buff);
+			int statesstart = fin.tellg();
 			for (int i = 0; i < buff.length(); i++)
 			{
-				alphabet.push_back(buff[i]);
+				if (buff[i] != ' ' && buff[i] != '\t')
+					alphabet.push_back(buff[i]);
 			}
 
-			fin.seekg(tablestart);
-			for (int i = 0; !fin.eof(); i++)
+			fin.seekg(statesstart);
+			for (int i = 0;; i++)
 			{
 				buff.clear();
 				fin >> buff;
+				if (buff.empty())
+					break;
 				states.push_back(buff);
 				for (int j = 0; j < alphabet.size(); j++)
 				{
@@ -73,16 +73,38 @@ class TuringMachine
 					rules[i][j] = buff;
 				}
 			}
+			fin.close();
 			
 		}
 
 
-		void displayTape()
+		void showTape()
 		{	
 			for (auto i = tape.begin(); i != tape.end(); i++)
 			{
 				cout << *i;
 			}
+			cout <<endl;
+			return;
+		}
+
+		void showAlphabet()
+		{
+			for (int i = 0; i < alphabet.size(); i++)
+			{
+				cout << alphabet[i]<< " ";
+			}	
+			cout <<endl;
+			return;
+		}
+
+		void showStates()
+		{
+			for (int i = 0; i < states.size(); i++)
+			{
+				cout << states[i] << " ";
+			}
+			cout << endl;
 			return;
 		}
 
