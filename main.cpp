@@ -32,6 +32,7 @@ class TuringMachine
 			//cin >> filename;
 			//ifstream fin(filename);
 			ifstream fin("tm.txt");
+
 			if (!fin)
 			{
 				cout << "Невозможно открыть файл."<< endl;
@@ -108,12 +109,28 @@ class TuringMachine
 			return;
 		}
 
+		void showRules()
+		{
+			for (auto i = 0; i < states.size(); i++)
+				{
+					for (int j = 0; j < alphabet.size();j++)
+					{
+						
+							cout << rules[i][j] << " ";
+					}
+					cout << endl;
+				}
+			return;
+		}
+
+
+
 
 	private:
 		list<char> tape;
 		vector<char> alphabet;
 		vector<string> states;
-		array<array<string, 100>, 50> rules;
+		array<array<string, 100>, 50> rules {};
 
 
 };
@@ -122,7 +139,7 @@ class TuringMachine
 
 int main(int argc, char const *argv[])
 {
-
 	TuringMachine tm;
+	tm.showRules();
 	return 0;
 }
