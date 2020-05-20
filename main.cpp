@@ -30,11 +30,11 @@ class TuringMachine
 		TuringMachine()
 		{
 			//Считывание начальной ленты.
-			//cout << "Введите название файла.расширение, содержащего начальную ленту и инструкции" << endl;
-			//string filename;
-			//cin >> filename;
-			//ifstream fin(filename);
-			ifstream fin("tm.txt");
+			cout << "Введите \"название файла.расширение\", содержащего начальную ленту и инструкции" << endl;
+			string filename;
+			cin >> filename;
+			ifstream fin(filename);
+		
 
 			if (!fin)
 			{
