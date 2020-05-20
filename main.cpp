@@ -6,7 +6,6 @@
 * 19.05.2020
 */
 
-
 #include <iostream>
 #include <list>
 #include <string>
@@ -15,7 +14,6 @@
 #include <cstdlib>
 #include <array>
 #include <unistd.h>
-
 
 #define RWH_MOV "LNR"
 #define MAX_ALPHABET 50
@@ -28,7 +26,6 @@ using namespace std;
 class TuringMachine
 {
 	public:
-
 		//Конструктор класса. Считывание входных параметров.
 		TuringMachine()
 		{
@@ -38,7 +35,6 @@ class TuringMachine
 			//cin >> filename;
 			//ifstream fin(filename);
 			ifstream fin("tm.txt");
-
 
 			if (!fin)
 			{
@@ -54,15 +50,18 @@ class TuringMachine
 				tape.push_back(buff[i]);
 			}
 
-
 			buff.clear();
 			fin.seekg((int)fin.tellg() + 1 );
 			getline(fin,buff);
-			int statesstart = fin.tellg();
+			long int statesstart = fin.tellg();
+			int counter = 0;
 			for (size_t i = 0; i < buff.length(); i++)
 			{
-				if (buff[i] != ' ' && buff[i] != '\t')
-					alphabet.emplace(buff[i], i);
+
+				if (buff[i] != ' ' && buff[i] != '\t'){
+					alphabet.emplace(buff[i], counter);
+					counter++;
+				}
 			}
 			
 			states.emplace(0,"q0");
@@ -83,13 +82,7 @@ class TuringMachine
 				}
 			}
 			fin.close();
-			
 		}
-
-
-
-
-
 
 
 		void start()
@@ -106,13 +99,12 @@ class TuringMachine
 	
 			while (state != "q0")
 			{
-
-				rule = rules[stoul(state.substr(1, state.length() - 1))][alphabet.find(*RWH) -> second]; 	//rules[][]	 В первой скобке (int)номер состояния, во второй скобке номер буквы алфавита(map<char><unsigned int>) 
+				rule = rules[stoul(state.substr(1, state.length() - 1)) - 1][alphabet.find(*RWH) -> second]; 	//rules[][]	 В первой скобке (int)номер состояния, во второй скобке номер буквы алфавита(map<char><unsigned int>) 
 				if (rule != "-"){
-				state = rule.substr(1, (rule.length() - 2) - 1);
+				state = rule.substr(0, (rule.length() - 2));
 				mov = rule[rule.length() - 2];
 				newsym = rule[rule.length() - 1];
-				tape.insert(RWH, newsym);
+				*RWH = newsym;
 				switch (mov) {
 					case 'L': if (RWH == tape.begin()) {
 						tape.push_front('_'); 
@@ -125,24 +117,20 @@ class TuringMachine
 					}
 					RWH++;
 					break;
-
 				}
 			} else {
 				cout << "ОШИБКА!" << endl; 
 				cout << "Команда не задана." << endl;
 				exit(-1);
-
+				}
+				displayTape(state);
 			}
-
-
-			}
-
 		}
 
 
 		void displayTape(string state)
 		{
-			cout << "\r";
+			system("clear");
 			for (list<char>::iterator i = tape.begin(); i != tape.end(); i++)
 			{
 				cout << *i;
@@ -154,55 +142,10 @@ class TuringMachine
 			}
 			cout << "^(" << state << ")";
 			cout << flush;
-			usleep(100000);
-
+			usleep(400000);
 			return;
 		}
 
-
-		void showTape()
-		{	
-			for (list<char>::iterator i = tape.begin(); i != tape.end(); i++)
-			{
-				cout << *i;
-			}
-			cout <<endl;
-			return;
-		}
-
-		void showAlphabet()
-		{
-			for (size_t i = 0; i < alphabet.size(); i++)
-			{
-				cout << alphabet[i]<< " ";
-			}	
-			cout <<endl;
-			return;
-		}
-
-		void showStates()
-		{
-			for (size_t i = 0; i < states.size(); i++)
-			{
-				cout << states[i] << " ";
-			}
-			cout << endl;
-			return;
-		}
-
-		void showRules()
-		{
-			for (size_t i = 0; i < states.size(); i++)
-				{
-					for (size_t j = 0; j < alphabet.size();j++)
-					{
-						
-							cout << rules[i][j] << " ";
-					}
-					cout << endl;
-				}
-			return;
-		}
 
 
 
@@ -213,9 +156,7 @@ class TuringMachine
 		list<char>::iterator RWH;
 		map<char, unsigned int> alphabet;
 		map<unsigned int, string> states;
-
 		array<array<string, MAX_STATES>, MAX_ALPHABET> rules {}; //двумерный массив в котором строки - состояние, а столбцы - алфавит.
-
 
 		void checkTape()
 		{
@@ -234,7 +175,6 @@ class TuringMachine
 			}
 		}
 
-
 		void checkRules()
 		{
 			for (size_t i = 0; i < states.size(); i++)
@@ -243,15 +183,15 @@ class TuringMachine
 					{
 						
 						string temp = rules[i][j];
-						if (rules[i][j].compare("-") != 0)	// Обработка искючения. Разрешенный символ '-' для пустых правил.
+						if ((rules[i][j].compare("-")) != 0 && (rules[i][j].compare("") != 0))	// Обработка искючения. Разрешенный символ '-' для пустых правил.
 						{
 
 
 
 							//Проверка правильности указанных  состояний
 							string temp2 = temp.substr(1,(temp.length() - 2)-1);	//Номер состояния записан между символом RWH и первым символом 'q'.	
-							unsigned int state = stoul(temp2);
-							if (states.find(state) -> first != state)
+							long unsigned int state = stoul(temp2);
+							if (states.find((unsigned int)state) -> first != state)
 							{
 								cout << "ОШИБКА!" << endl; 	
 								cout << "В правиле "<< temp << " использовано неописанное состояние Машины Тьюринга." << endl;
@@ -285,6 +225,7 @@ class TuringMachine
 			}
 		}
 };
+
 
 
 
