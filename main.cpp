@@ -1,6 +1,7 @@
 /*
-* ЮФУ ИКТИБ МОП ЭВМ.
-* Неприн Михаил Андреевич, КТбо1-1.
+* ЮФУ ИКТИБ МОП ЭВМ
+* Неприн Михаил Андреевич, КТбо1-1
+* https://github.com/archemich/turing-machine
 * Машина Тьюринга
 * 19.05.2020
 */
@@ -38,6 +39,7 @@ class TuringMachine
 			//ifstream fin(filename);
 			ifstream fin("tm.txt");
 
+
 			if (!fin)
 			{
 				cout << "ОШИБКА!" << endl;
@@ -52,8 +54,7 @@ class TuringMachine
 				tape.push_back(buff[i]);
 			}
 
-			//двумерный массив в котором строки - состояние
-			//а столбцы - алфавит.
+
 			buff.clear();
 			fin.seekg((int)fin.tellg() + 1 );
 			getline(fin,buff);
@@ -61,9 +62,10 @@ class TuringMachine
 			for (size_t i = 0; i < buff.length(); i++)
 			{
 				if (buff[i] != ' ' && buff[i] != '\t')
-					alphabet.emplace(buff[i],buff[i]);
+					alphabet.emplace(buff[i], i);
 			}
-
+			
+			states.emplace(0,"q0");
 			fin.seekg(statesstart);
 			for (size_t i = 0;; i++)
 			{
@@ -94,12 +96,73 @@ class TuringMachine
 		{
 			checkTape();
 			checkRules();
+			RWH = tape.begin();
+			string state = "q1";
+			string nextstate;
+			char mov;
+			char newsym;
+			string rule;
+			displayTape(state);
+	
+			while (state != "q0")
+			{
+
+				rule = rules[stoul(state.substr(1, state.length() - 1))][alphabet.find(*RWH) -> second]; 	//rules[][]	 В первой скобке (int)номер состояния, во второй скобке номер буквы алфавита(map<char><unsigned int>) 
+				if (rule != "-"){
+				state = rule.substr(1, (rule.length() - 2) - 1);
+				mov = rule[rule.length() - 2];
+				newsym = rule[rule.length() - 1];
+				tape.insert(RWH, newsym);
+				switch (mov) {
+					case 'L': if (RWH == tape.begin()) {
+						tape.push_front('_'); 
+					}
+					RWH--;
+					break;
+					
+					case 'R': if (RWH==tape.end()){
+						tape.push_back('_');
+					}
+					RWH++;
+					break;
+
+				}
+			} else {
+				cout << "ОШИБКА!" << endl; 
+				cout << "Команда не задана." << endl;
+				exit(-1);
+
+			}
+
+
+			}
+
+		}
+
+
+		void displayTape(string state)
+		{
+			cout << "\r";
+			for (list<char>::iterator i = tape.begin(); i != tape.end(); i++)
+			{
+				cout << *i;
+			}
+			cout <<endl;
+			for (list<char>::iterator temp = tape.begin(); temp != RWH; temp++)
+			{
+				cout << " ";
+			}
+			cout << "^(" << state << ")";
+			cout << flush;
+			usleep(100000);
+
+			return;
 		}
 
 
 		void showTape()
 		{	
-			for (auto i = tape.begin(); i != tape.end(); i++)
+			for (list<char>::iterator i = tape.begin(); i != tape.end(); i++)
 			{
 				cout << *i;
 			}
@@ -147,10 +210,11 @@ class TuringMachine
 	private:
 
 		list<char> tape;
-		list<char>::pointer RWH;
-		map<char, char> alphabet;
+		list<char>::iterator RWH;
+		map<char, unsigned int> alphabet;
 		map<unsigned int, string> states;
-		array<array<string, MAX_STATES>, MAX_ALPHABET> rules {};
+
+		array<array<string, MAX_STATES>, MAX_ALPHABET> rules {}; //двумерный массив в котором строки - состояние, а столбцы - алфавит.
 
 
 		void checkTape()
@@ -159,7 +223,7 @@ class TuringMachine
 			{
 				bool isDeclarated = false;
 
-					if (*it == alphabet[*it])
+					if (*it == (alphabet.find(*it) -> first))
 						isDeclarated = true;
 				if (!isDeclarated){
 					cout << "ОШИБКА!" << endl; 
@@ -216,20 +280,7 @@ class TuringMachine
 								exit(-1);
 							}
 
-
-
-
-
-
-
-
-
-
-
-
-
 						}
-						
 					}
 			}
 		}
