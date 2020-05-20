@@ -13,12 +13,12 @@
 #include <map>
 #include <cstdlib>
 #include <array>
-#include <unistd.h>
+#include <windows.h>
 
 #define RWH_MOV "LNR"
 #define MAX_ALPHABET 50
 #define MAX_STATES 100
-#define OUTPUTSPEED 300000
+#define OUTPUTSPEED 200
 
 std::string filename;
 
@@ -132,7 +132,7 @@ class TuringMachine
 
 		void displayTape(string state)
 		{
-			system("clear");
+			system("cls");
 			cout << "Turing Machine Simulator made by archemich"<<endl;
 			printTable();
 			for (list<char>::iterator i = tape.begin(); i != tape.end(); i++)
@@ -146,7 +146,7 @@ class TuringMachine
 			}
 			cout << "^(" << state << ")";
 			cout << flush;
-			usleep(OUTPUTSPEED);
+			Sleep(OUTPUTSPEED);
 			return;
 		}
 
@@ -226,7 +226,7 @@ class TuringMachine
 
 		void printTable()
 		{
-			system(("cat " + filename).c_str());
+			system(("TYPE " + filename).c_str());
 			return;
 		}
 };
@@ -236,6 +236,8 @@ class TuringMachine
 
 int main(int argc, char const *argv[])
 {
+	SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
 	TuringMachine tm;
 	tm.start();
 	return 0;

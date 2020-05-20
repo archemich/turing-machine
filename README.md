@@ -1,5 +1,4 @@
 # turing-machine
-University assignment
 Task: create turing-machine simulator in C++. Tape is 2-way list.
 At each step of the simulated Turing machine 
 display its configuration on the screen, which means to display the contents of the tape
@@ -15,7 +14,17 @@ place on the tape and check their correctness.
 The program should display the steps of the Turing machine in steps.
 At each step of the machine, the screen should display:
 1. Tape;
-2. Position of the head on the tape;
-3. Current state of the Turing machine.
+1. Position of the head on the tape;
+1. Current state of the Turing machine.
 After reaching the final state(q0), the program should report completion.
 
+
+## How To Use
+Bin folder consist of 2 executable files.
+turingmachine.exe for windows and turingmachine_linux for linux
+
+Put file containing instructions in root folder. (yourins.txt for example)
+So your yourins.txt must contain tape in first line and table with instructions in next line.
+Example you can find in tm.txt.
+When you run app, you must write name.format (yourins.txt for example) containing your instructions.
+Then you will see how you task is solving.
