@@ -1,5 +1,4 @@
 # turing-machine
-University assignment
 Task: create turing-machine simulator in C++. Tape is 2-way list.
 At each step of the simulated Turing machine 
 display its configuration on the screen, which means to display the contents of the tape
