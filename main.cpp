@@ -34,7 +34,8 @@ class TuringMachine
 		{
 			//Считывание начальной ленты.
 			cout << "Введите \"название файла.расширение\", содержащего начальную ленту и инструкции" << endl;
-						cin >> filename;
+
+			cin >> filename;
 			ifstream fin(filename);
 		
 
