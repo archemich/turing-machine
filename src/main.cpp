@@ -6,6 +6,11 @@
 * 19.05.2020
 */
 
+//Раскладывать правила по структурам на файловом входе
+
+
+
+
 #include <iostream>
 #include <list>
 #include <string>
@@ -13,28 +18,32 @@
 #include <map>
 #include <cstdlib>
 #include <array>
-#include <windows.h>
+#include <unistd.h>
 
 #define RWH_MOV "LNR"
 #define MAX_ALPHABET 50
 #define MAX_STATES 100
-#define OUTPUTSPEED 200
+#define OUTPUTSPEED 200000
 
-std::string filename;
-
-
+std::string filename = "../cfg/";
 
 using namespace std;
 
+
+
 class TuringMachine
 {
+
+	
 	public:
 		//Конструктор класса. Считывание входных параметров.
 		TuringMachine()
 		{
 			//Считывание начальной ленты.
 			cout << "Введите \"название файла.расширение\", содержащего начальную ленту и инструкции" << endl;
-						cin >> filename;
+			string buff;
+			cin >> buff;
+			filename += buff;
 			ifstream fin(filename);
 		
 
@@ -44,7 +53,7 @@ class TuringMachine
 				cout << "Невозможно открыть файл."<< endl;
 				exit(-1);
 			}
-			string buff;
+			
 			fin >> buff;
 
 			for (size_t i = 0; i < buff.length(); i++ )
@@ -65,7 +74,7 @@ class TuringMachine
 					counter++;
 				}
 			}
-			
+
 			states.emplace(0,"q0");
 			fin.seekg(statesstart);
 			for (size_t i = 0;; i++)
@@ -93,7 +102,6 @@ class TuringMachine
 			checkRules();
 			RWH = tape.begin();
 			string state = "q1";
-			string nextstate;
 			char mov;
 			char newsym;
 			string rule;
@@ -113,11 +121,11 @@ class TuringMachine
 					}
 					RWH--;
 					break;
-					
-					case 'R': if (RWH==tape.end()){
+					case 'R': RWH++;
+					if (RWH==tape.end()){
 						tape.push_back('_');
+						RWH--;
 					}
-					RWH++;
 					break;
 				}
 			} else {
@@ -132,7 +140,7 @@ class TuringMachine
 
 		void displayTape(string state)
 		{
-			system("cls");
+			system("clear");
 			cout << "Turing Machine Simulator made by archemich"<<endl;
 			printTable();
 			for (list<char>::iterator i = tape.begin(); i != tape.end(); i++)
@@ -146,7 +154,7 @@ class TuringMachine
 			}
 			cout << "^(" << state << ")";
 			cout << flush;
-			Sleep(OUTPUTSPEED);
+			usleep(OUTPUTSPEED);
 			return;
 		}
 
@@ -161,7 +169,7 @@ class TuringMachine
 		map<char, unsigned int> alphabet;
 		map<unsigned int, string> states;
 		array<array<string, MAX_STATES>, MAX_ALPHABET> rules {}; //двумерный массив в котором строки - состояние, а столбцы - алфавит.
-
+		
 		void checkTape()
 		{
 			for (list<char>::iterator it = tape.begin(); it != tape.end(); it++ )
@@ -211,6 +219,7 @@ class TuringMachine
 							}
 
 
+							//Проверка на правильность указанных символов алфавита
 							char c = temp[temp.length() - 1];
 							if (alphabet.find(c) -> first != c)
 							{
@@ -226,7 +235,7 @@ class TuringMachine
 
 		void printTable()
 		{
-			system(("TYPE " + filename).c_str());
+			system(("cat " + filename).c_str());
 			return;
 		}
 };
@@ -236,8 +245,6 @@ class TuringMachine
 
 int main(int argc, char const *argv[])
 {
-	SetConsoleCP(1251);
-    SetConsoleOutputCP(1251);
 	TuringMachine tm;
 	tm.start();
 	return 0;

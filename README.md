@@ -27,4 +27,5 @@ Put file containing instructions in root folder. (yourins.txt for example)
 So your yourins.txt must contain tape in first line and table with instructions in next line.
 Example you can find in tm.txt.
 When you run app, you must write name.format (yourins.txt for example) containing your instructions.
+State format "q*", state must start with 'q'. Read\write head format "L", allowed symbols "LNR", the last symbol is any symbol, allowed symbols are those you described in alphabet.
 Then you will see how you task is solving.

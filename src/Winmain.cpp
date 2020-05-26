@@ -5,7 +5,7 @@
 * Машина Тьюринга
 * 19.05.2020
 */
-
+#include <locale>
 #include <iostream>
 #include <list>
 #include <string>
@@ -13,14 +13,16 @@
 #include <map>
 #include <cstdlib>
 #include <array>
-#include <unistd.h>
+#include <windows.h>
+
+
 
 #define RWH_MOV "LNR"
 #define MAX_ALPHABET 50
 #define MAX_STATES 100
-#define OUTPUTSPEED 300000
+#define OUTPUTSPEED 200
 
-std::string filename;
+std::string filename = "../cfg/";
 
 
 
@@ -34,8 +36,9 @@ class TuringMachine
 		{
 			//Считывание начальной ленты.
 			cout << "Введите \"название файла.расширение\", содержащего начальную ленту и инструкции" << endl;
-
-			cin >> filename;
+			string buff;
+			cin >> buff;
+			filename += buff;
 			ifstream fin(filename);
 		
 
@@ -45,7 +48,7 @@ class TuringMachine
 				cout << "Невозможно открыть файл."<< endl;
 				exit(-1);
 			}
-			string buff;
+			
 			fin >> buff;
 
 			for (size_t i = 0; i < buff.length(); i++ )
@@ -133,7 +136,7 @@ class TuringMachine
 
 		void displayTape(string state)
 		{
-			system("clear");
+			system("cls");
 			cout << "Turing Machine Simulator made by archemich"<<endl;
 			printTable();
 			for (list<char>::iterator i = tape.begin(); i != tape.end(); i++)
@@ -147,7 +150,7 @@ class TuringMachine
 			}
 			cout << "^(" << state << ")";
 			cout << flush;
-			usleep(OUTPUTSPEED);
+			Sleep(OUTPUTSPEED);
 			return;
 		}
 
@@ -227,7 +230,7 @@ class TuringMachine
 
 		void printTable()
 		{
-			system(("cat " + filename).c_str());
+			system(("TYPE " + filename).c_str());
 			return;
 		}
 };
@@ -237,6 +240,7 @@ class TuringMachine
 
 int main(int argc, char const *argv[])
 {
+ 	setlocale(LC_ALL, "Russian");
 	TuringMachine tm;
 	tm.start();
 	return 0;
