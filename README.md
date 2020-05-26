@@ -23,7 +23,7 @@ After reaching the final state(q0), the program should report completion.
 Bin folder consist of 2 executable files.
 turingmachine.exe for windows and turingmachine_linux for linux
 
-Put file containing instructions in root folder. (yourins.txt for example)
+Put file containing instructions in cfg folder. (yourins.txt for example)
 So your yourins.txt must contain tape in first line and table with instructions in next line.
 Example you can find in tm.txt.
 When you run app, you must write name.format (yourins.txt for example) containing your instructions.
