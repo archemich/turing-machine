@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Turing Machine Online</title>
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+
+	<body>
+		<header>
+		<h1>Turing Machine</h1>
+		</header>
+
+		<hr>
+		<div class="app">
+			<form action="" onsubmit="return false;">
+				<p>Input tape</p>
+				<input type="text" name="tapeinput" id="tapeinput"><label for="tapeinput" accesskey="t"></label><br>
+				<p>Table of rules</p>
+				<table id="table_rules">
+					<tr>
+						<td class="spectd"></td>
+						<td class="spectd"><input type="text" value="_"></td>
+						<td class="spectd"><input type="text" value="a"></td>
+						<td class="spectd"><input type="text" value="b"></td>
+					</tr>
+					<tr>
+						<td class="spectd">q1</td>
+						<td><input type="text" class="rule"></td>
+						<td><input type="text" class="rule"></td>
+						<td><input type="text" class="rule"></td>
+					</tr>
+					
+				
+				</table>
+				<button id="asym">Add symbol</button>
+				<button id="rsym">Remove symbol</button>
+				<button id="astate">Add State</button>
+				<button id="rstate">Remove State</button>
+			</form>
+			<canvas id="tape" width="width"></canvas>
+			<br>
+			<button id="run">Run</button>
+		</div>
+		<!-- <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+		-->
+		<script src="js/app.js"></script>
+	</body>
+
+</html>

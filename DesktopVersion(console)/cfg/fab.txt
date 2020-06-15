@@ -1,0 +1,10 @@
+111111111
+	0	1	2	3	#	*	b	a	_
+q1	-	q1L1	-	-	-	-	-	-	q8R#
+q2	-	q2R*	-	-	-	-	-	-	q3L_
+q3	q3L0	q3L1	q3L2	q3L3	q5L#	q3L*	q3Lb	q3La	q7L_
+q4	q4R0	q4R1	q4R2	q4R3	q4R#	q3Rb	q4Rb	q4Ra	q7L_
+q5	q4R1	q4R2	q4R3	q6L0	-	-	-	-	q4R1
+q6	q4R1	q4R2	q4R3	q6L0	-	-	-	-	q4R1
+q7	q7L0	q7L1	q7L2	q7L3	q7L#	-	q7L1	q7L1	q0R_
+q8	-	q2Ra	-	-	-	-	-	-	-
