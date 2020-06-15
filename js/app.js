@@ -2,7 +2,7 @@
 			
 //////////////Table Of Rules control/////////////////////////////////
 // Add new symbol
-let asym = document.getElementById("asym");
+const asym = document.getElementById("asym");
 asym.onclick = function()
 {
 	let table = document.getElementById("table_rules");
@@ -19,7 +19,7 @@ asym.onclick = function()
 }
 
 // Remove last symbol
-let rsym = document.getElementById("rsym");
+const rsym = document.getElementById("rsym");
 rsym.onclick = function()
 {
 	let table = document.getElementById("table_rules");
@@ -36,7 +36,7 @@ rsym.onclick = function()
 }
 
 // Add new state
-let astate = document.getElementById("astate");
+const astate = document.getElementById("astate");
 astate.onclick = function()
 {
 	let table = document.getElementById("table_rules");
@@ -53,7 +53,7 @@ astate.onclick = function()
 }
 
 // Remove last state
-let rstate = document.getElementById("rstate");
+const rstate = document.getElementById("rstate");
 rstate.onclick = function()
 {
 	let table = document.getElementById("table_rules");
@@ -68,14 +68,18 @@ rstate.onclick = function()
 
 // Draw Tape
 const tapeSpeed = 1;
-let tapeinput = document.getElementById("tapeinput");
-let canvas = document.getElementById("tape");
-let ctx = canvas.getContext("2d");
+const tapeinput = document.getElementById("tapeinput");
+const canvas = document.getElementById("tape");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+
 function drawTape()
 {
-	
-	ctx.fillStyle = "green";
-	if (tapeinput.value.length > 3)
+	let cell_size = 50;
+	ctx.fillStyle = "gray";
+	let space = 2;
+	let middle_x = canvas.width / 2 - cell_size;
+	if (tapeinput.value.length > 0)
 	{
 		let prev = -50;
 
@@ -88,26 +92,37 @@ function drawTape()
 	} 
 	else 
 	{
-	
-		let prev = -50;
+		let right = middle_x ;
+		ctx.fillRect(right,cell_size+space,cell_size,cell_size);
+		let left = middle_x ;
 		for (let i = 0; i < 3; i++)
 		{
-			prev += 50;
-			ctx.fillRect(prev,0,50,50);	
+			right += cell_size + space;
+			left -= cell_size + space;
+			ctx.fillRect(right,cell_size+space,cell_size,cell_size);
+			ctx.fillRect(left,cell_size+space,cell_size,cell_size);
+
 		}
-	}
+	
+	 	ctx.fillRect(middle_x,0, cell_size,cell_size);
+		ctx.fillRect(middle_x,(cell_size+space)*2, cell_size,cell_size);
+}
 
 }
 
 tapeinput.onchange = function()
 {
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	drawTape();
 }
+
 drawTape();
+
 
 window.addEventListener('resize', resizeCanvas, false);
 function resizeCanvas()
 {
+	context.clearRect(0, 0, canvas.width, canvas.height);
 	canvas.width = window.innerWidth;
 	drawTape();
 }
