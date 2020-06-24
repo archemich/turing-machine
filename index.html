@@ -17,20 +17,43 @@
 		<div class="app">
 			<form action="" onsubmit="return false;">
 				<p>Input tape</p>
-				<input type="text" name="tapeinput" id="tapeinput"><label for="tapeinput" accesskey="t"></label><br>
+				<input type="text" name="tapeinput" id="tapeinput" value="1111_111"><label for="tapeinput" accesskey="t"></label><br>
 				<p>Table of rules</p>
 				<table id="table_rules">
 					<tr>
 						<td class="spectd"></td>
 						<td class="spectd"><input type="text" value="_"></td>
-						<td class="spectd"><input type="text" value="a"></td>
-						<td class="spectd"><input type="text" value="b"></td>
+						<td class="spectd"><input type="text" value="1"></td>
 					</tr>
 					<tr>
 						<td class="spectd">q1</td>
-						<td><input type="text" class="rule"></td>
-						<td><input type="text" class="rule"></td>
-						<td><input type="text" class="rule"></td>
+						<td><input type="text" class="rule" value="-"></td>
+						<td><input type="text" class="rule" value="_Rq2"></td>
+					</tr>
+					<tr>
+						<td class="spectd">q2</td>
+						<td><input type="text" class="rule" value="_Rq5"></td>
+						<td><input type="text" class="rule" value="1Rq3"></td>
+					</tr>
+					<tr>
+						<td class="spectd">q3</td>
+						<td><input type="text" class="rule" value="1Lq4"></td>
+						<td><input type="text" class="rule" value="1Rq3"></td>
+					</tr>
+					<tr>
+						<td class="spectd">q4</td>
+						<td><input type="text" class="rule" value="1Nq0"></td>
+						<td><input type="text" class="rule" value="1Lq4"></td>
+					</tr>
+					<tr>
+						<td class="spectd">q5</td>
+						<td><input type="text" class="rule" value="_Nq5"></td>
+						<td><input type="text" class="rule" value="_Rq5"></td>
+					</tr>
+					<tr>
+						<td class="spectd">q6</td>
+						<td><input type="text" class="rule" value="1Nq0"></td>
+						<td><input type="text" class="rule" value="-"></td>
 					</tr>
 					
 				
@@ -40,13 +63,15 @@
 				<button id="astate">Add State</button>
 				<button id="rstate">Remove State</button>
 			</form>
-			<canvas id="tape" height = "600"></canvas>
 			<br>
+			<p id="temptape">tape</p>
 			<button id="run">Run</button>
 		</div>
 		<!-- <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 		-->
-		<script src="js/app.js"></script>
+		<script src="js/turingmachine.js"></script>
 	</body>
 
 </html>
+
+
