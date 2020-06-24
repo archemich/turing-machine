@@ -1,77 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Turing Machine Online</title>
-		<link rel="stylesheet" href="css/style.css">
-	</head>
+<head>
+  <title>Turing Machine Online</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
+  
+</head>
 
-	<body>
-		<header>
-		<h1>Turing Machine</h1>
-		</header>
+<body>
+  <header>
+    <h1>Turing Machine</h1>
+  </header>
+  <hr>
+  <div class="app">
+    <form action="" onsubmit="return false;">
+        <h3>Table of rules</h3>
+        <div id="tableblock">
+        <table id="table_rules">
+          <tr id="alphabet">
+            <td id="corner"></td>
+            <td class="spectd"><input type="text" value="_"></td>
+            <td class="spectd"><input type="text" value="1"></td>
+          </tr>
+          <tr>
+            <td class="state">q1</td>
+            <td><input type="text" class="rule" value="-"></td>
+            <td><input type="text" class="rule" value="_Rq2"></td>
+          </tr>
+          <tr>
+            <td class="state">q2</td>
+            <td><input type="text" class="rule" value="_Rq5"></td>
+            <td><input type="text" class="rule" value="1Rq3"></td>
+          </tr>
+          <tr>
+            <td class="state">q3</td>
+            <td><input type="text" class="rule" value="1Lq4"></td>
+            <td><input type="text" class="rule" value="1Rq3"></td>
+          </tr>
+          <tr>
+            <td class="state">q4</td>
+            <td><input type="text" class="rule" value="1Nq0"></td>
+            <td><input type="text" class="rule" value="1Lq4"></td>
+          </tr>
+          <tr>
+            <td class="state">q5</td>
+            <td><input type="text" class="rule" value="_Nq5"></td>
+            <td><input type="text" class="rule" value="_Rq5"></td>
+          </tr>
+          <tr>
+            <td class="state">q6</td>
+            <td><input type="text" class="rule" value="1Nq0"></td>
+            <td><input type="text" class="rule" value="-"></td>
+          </tr>
 
-		<hr>
-		<div class="app">
-			<form action="" onsubmit="return false;">
-				<p>Input tape</p>
-				<input type="text" name="tapeinput" id="tapeinput" value="1111_111"><label for="tapeinput" accesskey="t"></label><br>
-				<p>Table of rules</p>
-				<table id="table_rules">
-					<tr>
-						<td class="spectd"></td>
-						<td class="spectd"><input type="text" value="_"></td>
-						<td class="spectd"><input type="text" value="1"></td>
-					</tr>
-					<tr>
-						<td class="spectd">q1</td>
-						<td><input type="text" class="rule" value="-"></td>
-						<td><input type="text" class="rule" value="_Rq2"></td>
-					</tr>
-					<tr>
-						<td class="spectd">q2</td>
-						<td><input type="text" class="rule" value="_Rq5"></td>
-						<td><input type="text" class="rule" value="1Rq3"></td>
-					</tr>
-					<tr>
-						<td class="spectd">q3</td>
-						<td><input type="text" class="rule" value="1Lq4"></td>
-						<td><input type="text" class="rule" value="1Rq3"></td>
-					</tr>
-					<tr>
-						<td class="spectd">q4</td>
-						<td><input type="text" class="rule" value="1Nq0"></td>
-						<td><input type="text" class="rule" value="1Lq4"></td>
-					</tr>
-					<tr>
-						<td class="spectd">q5</td>
-						<td><input type="text" class="rule" value="_Nq5"></td>
-						<td><input type="text" class="rule" value="_Rq5"></td>
-					</tr>
-					<tr>
-						<td class="spectd">q6</td>
-						<td><input type="text" class="rule" value="1Nq0"></td>
-						<td><input type="text" class="rule" value="-"></td>
-					</tr>
-					
-				
-				</table>
-				<button id="asym">Add symbol</button>
-				<button id="rsym">Remove symbol</button>
-				<button id="astate">Add State</button>
-				<button id="rstate">Remove State</button>
-			</form>
-			<br>
-			<p id="temptape">tape</p>
-			<button id="run">Run</button>
-		</div>
-		<!-- <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
-		-->
-		<script src="js/turingmachine.js"></script>
-	</body>
+          
+        </table>
+        </div>
+        <button class="tablebutton" id="asym">Add symbol</button>
+        <button class="tablebutton" id="rsym">Remove symbol</button>
+        <button class="tablebutton" id="astate">Add State</button>
+        <button class="tablebutton" id="rstate">Remove State</button>
+      
+      
+      <div id="input_tapeblock">
+        <h3>Input tape</h3>
+        <input type="text" name="tapeinput" id="tapeinput" value="1111_111"><label for="tapeinput" accesskey="t"></label>
+      </div>
+    </form>
 
-</html>
+    <div class="tapeblock">
+      <h3>Tape:</h3>
+      <p id="temptape">_____</p>
+    </div>
+
+    <button id="run">Run</button>
+    
+  </div>
+     <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+    <script src="js/turingmachine.js"></script>
+  </body>
+
+  </html>
 
 

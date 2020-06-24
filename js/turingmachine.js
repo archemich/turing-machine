@@ -5,8 +5,8 @@ function sleep(milliseconds) {
   let currentDate = null;
   do {
     currentDate = Date.now();
-  } while (currentDate - date < milliseconds);
-  return;
+} while (currentDate - date < milliseconds);
+return;
 }
 
 //////////////Table Of Rules control/////////////////////////////////
@@ -53,7 +53,7 @@ astate.onclick = function()
     let rc = table.rows.length;
     let nrow = table.insertRow(rc);
     let cell = nrow.insertCell(0);
-    cell.className = "spectd";
+    cell.className = "state";
     cell.innerHTML = `q${rc}`;
     for (let i = 1; i < table.rows[0].cells.length; i++)
     {
@@ -71,7 +71,7 @@ rstate.onclick = function()
     let rc = table.rows.length;
     if (rc > 2)
     {
-    table.deleteRow(rc-1);
+        table.deleteRow(rc-1);
     }
     else alert("You can't delete more rows");
     return;
@@ -88,7 +88,7 @@ let alphabet = [];
 let states = [];
 let rules = [];
 let tape;
-    
+
 function getInput()
 {
     tape = tapeinput.value.split("");
@@ -107,9 +107,9 @@ function getInput()
     {
         rules[i] = [];
         for (let j = 1; j < table.rows[0].cells.length; j++)
-            {
-                rules[i][j-1] = table.rows[i].cells[j].getElementsByTagName("input")[0].value;
-            }
+        {
+            rules[i][j-1] = table.rows[i].cells[j].getElementsByTagName("input")[0].value;
+        }
     }
     console.debug("Alphabet is", alphabet);
     console.debug("States are", states);
@@ -119,11 +119,11 @@ function getInput()
 
 function clearInput()
 {
-temptape.innerHTML = 'Tape';
-alphabet = [];
-states = [];
-rules = [];
-return;
+    temptape.innerHTML = '_____';
+    alphabet = [];
+    states = [];
+    rules = [];
+    return;
 }
 
 function updateTape(newtape)
@@ -251,7 +251,7 @@ run.onclick = function()
         }
         if (loop > endless_cycle_limit)
         {
-            alert('Your program probably got into an endless loop');
+            alert('Looks like your program got into an endless loop');
             break;
         }
         
