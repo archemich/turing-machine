@@ -84,25 +84,29 @@ const charset = ['L','N','R'];
 const tapeinput = document.getElementById("tapeinput");
 const run = document.getElementById("run");
 const temptape = document.getElementById("temptape");
-let alphabet = [];
-let states = [];
-let rules = [];
-let tape;
+let alphabet = [];      // symbols that turing machine use
+let states = [];        // state of turing machine
+let rules = [];         // instructions for turing machine
+let tape;               // just tape -_-
 
 function getInput()
 {
     tape = tapeinput.value.split("");
     let table = document.getElementById("table_rules");
+
+    // reading alphabet from the instruction table
     for (let i = 1; i < table.rows[0].cells.length; i++)
     {
         alphabet.push(table.rows[0].cells[i].getElementsByTagName("input")[0].value);
     }
 
+    // reading number of states in use from the instruction table 
     for (let i = 0; i < table.rows.length; i++)
     {
         states.push(i);
     }
 
+    // reading instructions from the instruction table 
     for (let i = 1; i < table.rows.length; i++)
     {
         rules[i] = [];
@@ -117,19 +121,111 @@ function getInput()
     return;
 }
 
+// clears alphabet, states, rules array and clear tape for user
 function clearInput()
 {
-    temptape.innerHTML = '_____';
+    temptape.innerHTML = '';
     alphabet = [];
     states = [];
     rules = [];
+    step_state = 1;
+    step_RWH = 0;
+    first_step = true;
     return;
 }
 
+// this function was supposed to be in use each step of turing machine to show turing machine step by step
 function updateTape(newtape)
 {
     temptape.innerHTML = newtape.join('');
     return;
+}
+
+
+// checks each character to be one symbol
+let checkAlphabet = function()
+{
+    for (let i = 0; i < alphabet.length; i++)
+    {
+
+        if (alphabet[i].length > 1)
+        {
+            console.error(`\'${alphabet[i]}\' is not allowed. You must use only one character.`);
+            alert(`\'${alphabet[i]}\' is not allowed. You must use only one character.`);
+            return false;
+        }
+    }
+    return true;
+}
+
+// checks each symbol in tape to be declared in alphabet
+let checkTape = function()
+{
+    for (let i = 0; i < tape.length; i++)
+    {
+        if (alphabet.indexOf(tape[i]) == -1)
+        {
+            console.error(`Symbol \'${tape[i]}\' is not declared in alphabet.`);
+            alert(`Symbol \'${tape[i]}\' is not declared in alphabet.`);
+            return false;
+        }
+    }
+    return true;
+}
+
+// check each rule to be written according to the rules
+let checkRules = function()
+{
+    let sym;
+    let mov;
+    let state;
+    let rule;
+    for (let i = 1; i < rules.length; i++)
+    {
+        for (let j = 0; j < rules[i].length; j++)
+        {
+            rule = rules[i][j];
+            if (rule != '-')
+            {
+                sym = rules[i][j][0];
+                mov = rules[i][j][1];
+                state = rules[i][j].slice(2);
+
+                // the first symbol in a rule must be declared in alphabet
+                if (alphabet.indexOf(sym) == -1)
+                {
+                    console.error(`Symbol \'${sym}\' is not declared in alphabet.`);
+                    alert(`Symbol \'${sym}\' is not declared in alphabet.`);
+                    return false;
+                }
+
+                // the second symbol in a rule must be L, N or R.
+                else if (charset.indexOf(mov) == -1)
+                {
+                    console.error(`Symbol \'${mov}\' is not allowed.`)
+                    alert(`Symbol \'${mov}\' is not allowed. You can use only \'L\', \'N\' or \'R\'.`)
+                    return false;
+                }
+
+                // the third symbol must be q
+                else if(state[0] != 'q')
+                {
+                    console.error(`You have to use 'q' before state number.`);
+                    alert(`You have to use 'q' before state number.`);
+                    return false;
+                }
+
+                //the last symbols must be declared with 'add state' button
+                else if (states.indexOf(Number(state.slice(1))) == -1)
+                {
+                    console.error(`\'${state}\' is not declared.`);
+                    alert(`\'${state}\' is not declared.`);
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
 }
 
 run.onclick = function()
@@ -137,83 +233,6 @@ run.onclick = function()
     // Input
     clearInput();
     getInput();
-
-    let checkAlphabet = function()
-    {
-
-        for (let i = 0; i < alphabet.length; i++)
-        {
-
-            if (alphabet[i].length > 1)
-            {
-                console.error(`\'${alphabet[i]}\' is not allowed. You must use only one character.`);
-                alert(`\'${alphabet[i]}\' is not allowed. You must use only one character.`);
-                return false;
-            }
-        }
-        return true;
-    }
-
-    let checkTape = function()
-    {
-        for (let i = 0; i < tape.length; i++)
-        {
-            if (alphabet.indexOf(tape[i]) == -1)
-            {
-                console.error(`Symbol \'${tape[i]}\' is not declared in alphabet.`);
-                alert(`Symbol \'${tape[i]}\' is not declared in alphabet.`);
-                return false;
-            }
-        }
-        return true;
-    }
-
-    let checkRules = function()
-    {
-        let sym;
-        let mov;
-        let state;
-        let rule;
-        for (let i = 1; i < rules.length; i++)
-        {
-            for (let j = 0; j < rules[i].length; j++)
-            {
-                rule = rules[i][j];
-                if (rule != '-')
-                {
-                    sym = rules[i][j][0];
-                    mov = rules[i][j][1];
-                    state = rules[i][j].slice(2);
-
-                    if (alphabet.indexOf(sym) == -1)
-                    {
-                        console.error(`Symbol \'${sym}\' is not declared in alphabet.`);
-                        alert(`Symbol \'${sym}\' is not declared in alphabet.`);
-                        return false;
-                    }
-                    else if (charset.indexOf(mov) == -1)
-                    {
-                        console.error(`Symbol \'${mov}\' is not allowed.`)
-                        alert(`Symbol \'${mov}\' is not allowed. You can use only \'L\', \'N\' or \'R\'.`)
-                        return false;
-                    }
-                    else if(state[0] != 'q')
-                    {
-                        console.error(`You have to use 'q' before state number.`);
-                        alert(`You have to use 'q' before state number.`);
-                        return false;
-                    }
-                    else if (states.indexOf(Number(state.slice(1))) == -1)
-                    {
-                        console.error(`\'${state}\' is not declared.`);
-                        alert(`\'${state}\' is not declared.`);
-                        return false;
-                    }
-                }
-            }
-        }
-        return true;
-    }
 
 
     // Check input in general
@@ -229,6 +248,8 @@ run.onclick = function()
     let RWH = 0;
     let mov;
     let newsym;
+
+    // that's turing machine
     while(state != 0)
     {
         rule = rules[state][alphabet.indexOf(tape[RWH])];
@@ -247,7 +268,8 @@ run.onclick = function()
         }
         else
         {
-            alert('error');
+            alert(`Turing machine tried to use \'-\' rule here: "state = q${state}, symbol = ${tape[RWH]}"`);
+            break;
         }
         if (loop > endless_cycle_limit)
         {
@@ -258,4 +280,66 @@ run.onclick = function()
     }
     updateTape(tape);
     return;
+}
+
+
+const clear = document.getElementById("clear");
+clear.onclick = function()
+{
+    clearInput();
+}
+
+const step = document.getElementById("step");
+let step_state = 1;
+let step_RWH = 0
+let first_step = true;
+let last_tape;
+
+function step_updateTape(newtape, state, RWH)
+{
+    temptape.innerHTML = newtape.slice(0, RWH).join('') + `[${newtape[RWH]}]` + newtape.slice(RWH+1).join('') + ` [q${state}]`;
+    return;
+}
+
+step.onclick = function()
+{
+
+    getInput();
+    if (first_step)
+    {
+        last_tape = tapeinput.value.split("");
+        first_step = false;
+    }
+    tape = last_tape;
+    let rule;
+    let mov;
+    let newsym;
+    if(step_state != 0)
+    {
+        rule = rules[step_state][alphabet.indexOf(tape[step_RWH])];
+        if (rule != '-')
+        {
+            newsym = rule[0];
+            mov = rule[1];
+            step_state = rule.slice(3);
+            tape[step_RWH] = newsym;
+            last_tape = tape;
+            switch (mov) {
+                case 'L': step_RWH--; if(tape[step_RWH] == undefined) {tape.unshift('_'); step_RWH++;} break;
+                case 'R': step_RWH++; if(tape[step_RWH] == undefined) tape[step_RWH] = '_'; break;
+            }
+        }
+        else
+        {
+            first_step = true;
+            alert(`Turing machine tried to use \'-\' rule here: "state = q${step_state}, symbol = ${tape[step_RWH]}"`);
+            return false;
+        }
+    }
+    else
+    {
+        alert(`Turing machine have already completed program`);
+    }
+    step_updateTape(tape, step_state, step_RWH);
+    return true;
 }

@@ -151,8 +151,48 @@ h1 {
 	display: block;
 	max-width: 600px;
 	width: 80%;
+	height: 14pt;
 	border: 1px solid gray;
 	border-radius: 8px;
 	padding: 5px 0 5px 0;
 	text-indent: 5px;
+	overflow: hidden;
+}
+
+#run {
+	background: #05A500FF;
+	color: white;
+}
+
+#run:hover {
+	background: #008B0DFF;
+}
+
+#run:active {
+	background: #005B0DFF ;
+}
+
+#clear {
+	color: white;
+	background: #CB3E00FF;
+}
+
+#clear:hover {
+background: #CD0000;
+}
+
+#clear:active {
+background: #BB0000;
+}
+
+#how-to-use {
+	font-weight: 400;
+	font-size: 10pt;
+	display: none;
+}
+
+#tmhelp:hover + #how-to-use{
+
+	display: block;
+
 }

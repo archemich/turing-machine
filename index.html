@@ -6,6 +6,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
+
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
   
@@ -18,7 +20,10 @@
   <hr>
   <div class="app">
     <form action="" onsubmit="return false;">
-        <h3>The instruction table</h3>
+        <h3>The instruction table <i class="far fa-question-circle" id="tmhelp"></i>  
+        <p id="how-to-use"></p>
+        </h3>
+
         <div id="tableblock">
         <table id="table_rules">
           <tr id="alphabet">
@@ -74,10 +79,12 @@
 
     <div class="tapeblock">
       <h3>The tape:</h3>
-      <p id="temptape">_____</p>
+      <p id="temptape"></p>
     </div>
 
     <button id="run">Run</button>
+    <button id="clear">Clear</button>
+    <button id="step">Step</button>
     
   </div>
      <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
