@@ -113,7 +113,7 @@ function getInput()
     }
     console.debug("Alphabet is", alphabet);
     console.debug("States are", states);
-    console.debug("Rules are:", rules);
+    console.debug("Instructions are:", rules);
     return;
 }
 
@@ -146,7 +146,7 @@ run.onclick = function()
 
             if (alphabet[i].length > 1)
             {
-                console.error(`\'${alphabet[i]}\' is not allowed. You must use only  one character.`);
+                console.error(`\'${alphabet[i]}\' is not allowed. You must use only one character.`);
                 alert(`\'${alphabet[i]}\' is not allowed. You must use only one character.`);
                 return false;
             }
