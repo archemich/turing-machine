@@ -195,7 +195,10 @@ background: #BB0000;
 }
 
 #tmhelp:hover + #how-to-use{
-
+	position: absolute;
+	background: lightgrey;
 	display: block;
-
+	border-radius: 10px;
+	padding: 5px 0px 5px 5px;
+	width: 600px;
 }
