@@ -24,6 +24,10 @@ h1 {
 	margin: 0;
 }
 
+h2 {
+	font-size: 1.17em;
+}
+
 #whitespaces {
 	font-size: 29pt;
 }
