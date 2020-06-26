@@ -141,6 +141,8 @@ h2 {
 	border: 1px solid grey;
 	border-radius: 8px;
 	outline: none;
+	padding: 5px 0 5px 5px;
+	height: 20px;
 }
 
 #tapeinput:hover {
@@ -161,7 +163,7 @@ h2 {
 	height: 28pt;
 	border: 1px solid gray;
 	border-radius: 8px;
-	padding: 5px 0 5px 0;
+	padding: 5px 0 5px 5px;
 	text-indent: 5px;
 	overflow: hidden;
 }
