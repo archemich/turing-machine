@@ -2,15 +2,17 @@
 <html lang="en">
 
 <head>
-  <title>Turing Machine Online</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Turing machine Online</title>
+  <meta http-equiv="Content-Type" content="text/ html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="It's turing machine simulator online which runs your program according to your rules in the instruction table.">
+  <meta name="robots" content="all">
+  <meta name="keywords" content="turing, machine, simulator, online, computer, science">
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
 
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
-  
 </head>
 
 <body>
@@ -20,11 +22,11 @@
   <hr>
   <div class="app">
     <form action="" onsubmit="return false;">
-        <h3>The instruction table <i class="far fa-question-circle" id="tmhelp"></i>  
+        <h2>The instruction table <i class="far fa-question-circle" id="tmhelp"></i>  
         <p id="how-to-use">
-          &ensp; This is the turing machine simulator which run programs according to rules in the instruction table.  <br> &ensp; You can manage the table by clicking on its cells, except of state cells. Use buttons "Add symbol" to add a new symbol to alphabet, "Remove symbol" to remove the last symbol from alphabet, "Add state" to add a new state, "Remove state" to remove the last state. <br> &ensp; "Run" button runs your algorithm with your input, "Clear" button clears the tape (use it when you change the instruction table) and "Step" button do a step forward in your program. <br> Use
+          &ensp; This is the turing machine simulator which runs program according to rules in the instruction table.  <br> &ensp; You can manage the table by clicking on its cells, except of state cells. Use buttons "Add symbol" to add a new symbol to alphabet, "Remove symbol" to remove the last symbol from alphabet, "Add state" to add a new state, "Remove state" to remove the last state. <br> &ensp; "Run" button runs your algorithm with your input, "Clear" button clears the tape (use it when you change the instruction table) and "Step" button do a step forward in your program. <br> Use
         </p>
-        </h3>
+        </h2>
 
         <div id="tableblock">
         <table id="table_rules">
@@ -74,13 +76,13 @@
       
       
       <div id="input_tapeblock">
-        <h3>The input</h3>
+        <h2>The input</h2>
         <input type="text" name="tapeinput" id="tapeinput" value="1111_111"><label for="tapeinput" accesskey="t"></label>
       </div>
     </form>
 
     <div class="tapeblock">
-      <h3>The tape:</h3>
+      <h2>The tape:</h2>
       <p id="temptape"></p>
     </div>
 
