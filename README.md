@@ -1,4 +1,4 @@
-# turing-machine
+# turing-machine (windows-version and linux-version branches)
 Task: create turing-machine simulator in C++. Tape is 2-way list.
 At each step of the simulated Turing machine 
 display its configuration on the screen, which means to display the contents of the tape
@@ -29,3 +29,4 @@ Example you can find in tm.txt.
 When you run app, you must write name.format (yourins.txt for example) containing your instructions.
 State format "q*", state must start with 'q'. Read\write head format "L", allowed symbols "LNR", the last symbol is any symbol, allowed symbols are those you described in alphabet.
 Then you will see how you task is solving.
+Step button do a step forward in your program
