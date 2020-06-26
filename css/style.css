@@ -120,6 +120,7 @@ h2 {
 	border: 1px solid grey;
 	border-radius: 8px; 
 	outline: none;
+	margin-bottom: 5px;
 }
 
 .tablebutton {
