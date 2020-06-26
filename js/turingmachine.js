@@ -323,35 +323,37 @@ step.onclick = function()
         last_tape = tapeinput.value.split("");
         first_step = false;
     }
-    tape = last_tape;
-    let rule;
-    let mov;
-    let newsym;
-    if(step_state != 0)
-    {
-        rule = rules[step_state][alphabet.indexOf(tape[step_RWH])];
-        if (rule != '-')
+    else {
+        tape = last_tape;
+        let rule;
+        let mov;
+        let newsym;
+        if(step_state != 0)
         {
-            newsym = rule[0];
-            mov = rule[1];
-            step_state = rule.slice(3);
-            tape[step_RWH] = newsym;
-            last_tape = tape;
-            switch (mov) {
-                case 'L': step_RWH--; if(tape[step_RWH] == undefined) {tape.unshift('_'); step_RWH++;} break;
-                case 'R': step_RWH++; if(tape[step_RWH] == undefined) tape[step_RWH] = '_'; break;
+            rule = rules[step_state][alphabet.indexOf(tape[step_RWH])];
+            if (rule != '-')
+            {
+                newsym = rule[0];
+                mov = rule[1];
+                step_state = rule.slice(3);
+                tape[step_RWH] = newsym;
+                last_tape = tape;
+                switch (mov) {
+                    case 'L': step_RWH--; if(tape[step_RWH] == undefined) {tape.unshift('_'); step_RWH++;} break;
+                    case 'R': step_RWH++; if(tape[step_RWH] == undefined) tape[step_RWH] = '_'; break;
+                }
+            }
+            else
+            {
+                first_step = true;
+                alert(`Turing machine tried to use \'-\' rule here: "state = q${step_state}, symbol = ${tape[step_RWH]}"`);
+                return false;
             }
         }
         else
         {
-            first_step = true;
-            alert(`Turing machine tried to use \'-\' rule here: "state = q${step_state}, symbol = ${tape[step_RWH]}"`);
-            return false;
+            alert(`Turing machine have already completed program`);
         }
-    }
-    else
-    {
-        alert(`Turing machine have already completed program`);
     }
     step_updateTape(tape, step_state, step_RWH);
     return true;
