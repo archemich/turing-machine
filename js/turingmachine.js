@@ -237,7 +237,7 @@ run.onclick = function()
 
     // Check input in general
     if (!checkAlphabet() || !checkTape() || !checkRules())
-        return;
+        return false;
 
     //Turing Machine start
     const endless_cycle_limit = 400;  // Endless cycle protection
@@ -314,9 +314,12 @@ function step_updateTape(newtape, state, RWH)
 step.onclick = function()
 {
 
-    getInput();
+    
     if (first_step)
     {
+        getInput();
+        if (!checkAlphabet() || !checkTape() || !checkRules())
+            return false;
         last_tape = tapeinput.value.split("");
         first_step = false;
     }
